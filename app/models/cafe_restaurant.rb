@@ -5,4 +5,5 @@ class CafeRestaurant < ApplicationRecord
     validates :website, format: { with: /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/i,
     message: "Invalid URL format" }
     scope :search_name_cafe, ->(name) { where("name ILIKE ?" , "%#{name}%")}
+    scope :active_user_role, ->{ joins(:user_roles).where("user_roles.active = ?", true).distinct }
 end
